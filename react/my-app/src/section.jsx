@@ -8,7 +8,7 @@ export function Section(){
           <ul>
             <li className="hover:text-blue-400"><a>BuyPhone</a></li>
             <li><a className="hover:text-blue-400">Store</a></li>
-            <li class="active">Phones (732)</li>
+            <li className="active lg:mr-6">Phones (732)</li>
           </ul>
         </div>
       </div>

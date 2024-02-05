@@ -3,6 +3,7 @@ import { Section } from './section';
 import { SideBar } from './sidebar';
 import { Section2} from './section2';
 import { Product } from './product';
+
 import './App.css';
 
 function App() {
@@ -17,9 +18,9 @@ function App() {
         <Section2/>
         <Product/>
         </div>
-
+        
       </div>
-
+      
 
 
 
