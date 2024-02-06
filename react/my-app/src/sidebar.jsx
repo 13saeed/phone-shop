@@ -1,11 +1,18 @@
-import "./index.css";
-import Slider from "react-slider";
+import './style.css';
 import { useState } from "react";
+import MultiRangeSlider from "multi-range-slider-react";
+import './multirangeslider.css'
+
 const Min = 500;
 const Max = 10000;
 
 export function SideBar() {
-  const [value, setValue] = useState([Min, Max]);
+  const [minValue, set_minValue] = useState(Min);
+  const [maxValue, set_maxValue] = useState(Max);
+  const handleInput = (e) => {
+    set_minValue(e.minValue);
+    set_maxValue(e.maxValue);
+  };
   return (
     <div className="flex bg-slate-200">
       <div className="flex-col bg-white border-r border-slate-100 lg:w-[340px] hidden lg:flex">
@@ -34,29 +41,37 @@ export function SideBar() {
 
         <h2 className="text-lg pl-9 py-3">Price</h2>
         <div className="flex justify-center">
-          
           <div className="flex w-[100px] justify-center items-center rounded-xl border border-slate-300">
-            <p className="text-center text-sm">${value[0]}</p>
+            <p className="text-center text-sm">${minValue}</p>
           </div>
-    
-            <p className="text-lg text-center px-2 lg:px-5 lg:pb-5">_</p>
-          
+
+          <p className="text-lg text-center px-2 lg:px-5 lg:pb-5">_</p>
 
           <div className="flex w-[100px] justify-center items-center rounded-xl border border-slate-300">
-            <p className="text-center text-sm">${value[1]}</p>
+            <p className="text-center text-sm">${maxValue}</p>
           </div>
         </div>
         <div>
-          <Slider
-            className="slider ml-5 mt-5 w-5/6 h-[5px] bg-slate-300 rounded-md"
+          <MultiRangeSlider
+            style={{border:"none",boxShadow:'none'}}
+            baseClassName='multi-range-slider'
             min={Min}
             max={Max}
-            value={value}
-            onChange={setValue}
+            step={5}
+            ruler={false}
+            label={false}
+            preventWheel={false}
+            thumbLeftColor="white"
+            thumbRightColor="white"
+            minValue={minValue}
+            maxValue={maxValue}
+            onInput={(e) => {
+              handleInput(e);
+            }}
           />
         </div>
 
-        <hr className="ml-7 mt-16 w-5/6 border-slate-100" />
+        <hr className="ml-7 mt-8 w-5/6 border-slate-100" />
         <div className="flex items-center mt-4">
           <div className="flex-1">
             <h4 className="text-start text-lg pl-9 py-3">Producer</h4>
