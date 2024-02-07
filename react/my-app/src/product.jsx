@@ -3,7 +3,6 @@ import { ProductList } from "./productList";
 
 export function Product(){
   const productItems = ProductList.map(product =>
-
         <div key={product.id} className="card w-[350px] my-5 md:mr-9 bg-base-100">
           <div className="text-end p-5">
             <i
