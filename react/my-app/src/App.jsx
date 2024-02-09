@@ -4,6 +4,7 @@ import { SideBar } from './sidebar';
 import { Section2} from './section2';
 import { Product } from './product';
 
+
 import './App.css';
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
 
       <div className="flex bg-slate-200">
         <SideBar/>
-        <div className="w-full overflow-auto">
+        <div className=" w-full overflow-auto">
         <Section2/>
+
         <Product/>
         </div>
         
