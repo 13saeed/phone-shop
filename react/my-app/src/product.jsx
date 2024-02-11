@@ -10,6 +10,7 @@ export function Product({min , max}){
           </div>
           <figure>
             <img
+              className="w-80"
               src={product.imgSrc}
               alt={product.name}
             />

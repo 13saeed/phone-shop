@@ -1,6 +1,7 @@
 import "./style.css";
 import MultiRangeSlider from "multi-range-slider-react";
 import "./multirangeslider.css";
+import { useState } from "react";
 
 export const Min = 1000;
 export const Max = 2000;
@@ -9,8 +10,11 @@ export const Max = 2000;
 
 
 
-export function SideBar( {setMin , setMax , min , max} ) {
-
+export function SideBar({ setMin, setMax, min, max }) {
+  const [show , setShow]=useState(true)
+  function handlerClick(){
+    setShow(!show)
+  }
 
   return (
     <div className="flex bg-slate-200">
@@ -250,10 +254,15 @@ export function SideBar( {setMin , setMax , min , max} ) {
           <div className="flex-1">
             <h4 className="text-start text-lg pl-9 py-3">Available in store</h4>
           </div>
+          
           <div className="flex pr-8">
-            <i className="fa-solid fa-chevron-down fa-xs"></i>
+            <button className="cursor-pointer" onClick={handlerClick}>{show?<i class="fa-solid fa-chevron-up fa-xs"></i>:<i className="fa-solid fa-chevron-down fa-xs"></i>}</button>
+            
           </div>
         </div>
+        
+          {show && <div className="w-full h-16 bg-red-500"></div>} 
+        
         <hr className="ml-7 mt-4 w-5/6 border-slate-100" />
         <div className="flex items-center mt-4">
           <div className="flex-1">

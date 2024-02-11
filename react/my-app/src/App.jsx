@@ -12,7 +12,7 @@ function App() {
 
     const [minValue, setMinValue] = useState(1000);
     const [maxValue, setMaxValue] = useState(2000);
-
+    
   return (
     <div>
       <Navbar/>
