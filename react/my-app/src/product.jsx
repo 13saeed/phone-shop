@@ -1,7 +1,7 @@
-import { pl } from "./sidebar"
+import { productList } from "./productList"
 
-export function Product(){ 
-     const items =pl.map( product =>
+export function Product({min , max}){
+     return productList.filter(p => p.price < max && p.price > min).map( product =>
         <div key={product.id} className="card w-[350px] my-5 md:mr-9 bg-base-100">
           <div className="text-end p-5">
             <i
@@ -66,11 +66,4 @@ export function Product(){
           </div>
          </div>
     )
-    return(
-      <div
-
-      className="flex flex-wrap items-center align-middle justify-center my-5 mx-3"
-    >
-    {items}</div>
-)
 }

@@ -1,105 +1,16 @@
 import "./style.css";
-import { useEffect, useState } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
 import "./multirangeslider.css";
-import { Product } from "./product";
 
 export const Min = 1000;
 export const Max = 2000;
 
-export const pl = [
-  {
-    id: 0,
-    name: "iphone",
-    title: "Apple iphone 15 Pro Max",
-    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
-    screen: "screen 6.1",
-    processor: "Apple A16 Bionic",
-    memory: "256gb",
-    system: "ios 15",
-    price: 1599,
-    free: "free Shipment",
-  },
 
-  {
-    id: 1,
-    name: "iphone",
-    title: "Apple iphone 13 Pro Max",
-    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
-    screen: "screen 6.1",
-    rocessor: "Apple A16 Bionic",
-    memory: "256gb",
-    system: "ios 15",
-    price: 1299,
-    free: "free Shipment",
-  },
-  {
-    id: 2,
-    name: "iphone",
-    title: "Apple iphone 12",
-    imgSrc: "./2022-2-apple-iphone-12-black-652d20cf8716201626d168a2.jfif",
-    rocessor: "Apple A16 Bionic",
-    screen: "screen 6.1",
-    memory: "256gb",
-    system: "ios 15",
-    price: 1199,
-    free: "free Shipment",
-  },
-  {
-    id: 3,
-    name: "iphone",
-    title: "Apple iphone 15 Pro Max",
-    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
-    screen: "screen 6.1",
-    processor: "Apple A16 Bionic",
-    memory: "256gb",
-    system: "ios 15",
-    price: 1599,
-    free: "free Shipment",
-  },
 
-  {
-    id: 4,
-    name: "iphone",
-    title: "Apple iphone 13 Pro Max",
-    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
-    screen: "screen 6.1",
-    rocessor: "Apple A16 Bionic",
-    memory: "256gb",
-    system: "ios 15",
-    price: 1299,
-    free: "free Shipment",
-  },
-  {
-    id: 5,
-    name: "iphone",
-    title: "Apple iphone 12",
-    imgSrc: "./2022-2-apple-iphone-12-black-652d20cf8716201626d168a2.jfif",
-    rocessor: "Apple A16 Bionic",
-    screen: "screen 6.1",
-    memory: "256gb",
-    system: "ios 15",
-    price: 1199,
-    free: "free Shipment",
-  },
-];
 
-export function SideBar() {
-  const [minValue, set_minValue] = useState(Min);
-  const [maxValue, set_maxValue] = useState(Max);
-  const [productList, setProductList] = useState([pl]);
-  useEffect(() => {
-    setProductList(
-      pl.filter(
-        (product) => product.price >= minValue && product.price <= maxValue
-      )
-    );
-  }, [minValue, maxValue]);
 
-  const handleInput = (e) => {
-    set_minValue(e.minValue);
-    set_maxValue(e.maxValue);
-  };
+export function SideBar( {setMin , setMax , min , max} ) {
+
 
   return (
     <div className="flex bg-slate-200">
@@ -110,7 +21,7 @@ export function SideBar() {
           </div>
           <div className="flex pr-10">
             <a className="text-sm cursor-pointer text-blue-400">
-              Delete all fillters
+              Delete all filters
             </a>
           </div>
         </div>
@@ -130,21 +41,21 @@ export function SideBar() {
         <h2 className="text-lg pl-9 py-3">Price</h2>
         <div className="flex justify-center">
           <div className="flex w-[100px] justify-center items-center rounded-xl border border-slate-300">
-            <p className="text-center text-sm">${minValue}</p>
+            <p className="text-center text-sm">${min}</p>
           </div>
 
           <p className="text-lg text-center px-2 lg:px-5 lg:pb-5">_</p>
 
           <div className="flex w-[100px] justify-center items-center rounded-xl border border-slate-300">
-            <p className="text-center text-sm">${maxValue}</p>
+            <p className="text-center text-sm">${max}</p>
           </div>
         </div>
         <div>
           <MultiRangeSlider
             style={{ border: "none", boxShadow: "none" }}
             baseClassName="multi-range-slider"
-            min={Min}
-            max={Max}
+            min={1000}
+            max={2000}
             step={5}
             ruler={false}
             label={false}
@@ -154,7 +65,8 @@ export function SideBar() {
             minValue={1000}
             maxValue={2000}
             onInput={(e) => {
-              handleInput(e);
+              setMin(e.minValue);
+              setMax(e.maxValue)
             }}
           />
         </div>
@@ -193,8 +105,6 @@ export function SideBar() {
             </label>
           </div>
 
-          {productList.map(Product)}
-          
           <div className="flex ml-8">
             <label className="label cursor-pointer">
               <input
