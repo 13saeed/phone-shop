@@ -1,8 +1,7 @@
-import { ProductList } from "./productList";
+import { pl } from "./sidebar"
 
-
-export function Product(){
-  const productItems = ProductList.map(product =>
+export function Product(){ 
+     const items =pl.map( product =>
         <div key={product.id} className="card w-[350px] my-5 md:mr-9 bg-base-100">
           <div className="text-end p-5">
             <i
@@ -66,14 +65,12 @@ export function Product(){
             <a className="text-sm text-blue-500 cursor-pointer">{product.free}</a>
           </div>
          </div>
-
-
     )
     return(
       <div
 
       className="flex flex-wrap items-center align-middle justify-center my-5 mx-3"
     >
-    {productItems}</div>
+    {items}</div>
 )
 }

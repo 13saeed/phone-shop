@@ -1,115 +1,106 @@
-import './style.css';
-import { useState } from "react";
+import "./style.css";
+import { useEffect, useState } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
-import './multirangeslider.css'
-import { ProductList } from './productList';
-
+import "./multirangeslider.css";
+import { Product } from "./product";
 
 export const Min = 1000;
 export const Max = 2000;
 
-export function Product(){
-  const productItems = ProductList.map()
-    return(
-      <div
+export const pl = [
+  {
+    id: 0,
+    name: "iphone",
+    title: "Apple iphone 15 Pro Max",
+    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
+    screen: "screen 6.1",
+    processor: "Apple A16 Bionic",
+    memory: "256gb",
+    system: "ios 15",
+    price: 1599,
+    free: "free Shipment",
+  },
 
-      className="flex flex-wrap items-center align-middle justify-center my-5 mx-3"
-    >
-    {productItems}</div>
-)
-}
+  {
+    id: 1,
+    name: "iphone",
+    title: "Apple iphone 13 Pro Max",
+    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
+    screen: "screen 6.1",
+    rocessor: "Apple A16 Bionic",
+    memory: "256gb",
+    system: "ios 15",
+    price: 1299,
+    free: "free Shipment",
+  },
+  {
+    id: 2,
+    name: "iphone",
+    title: "Apple iphone 12",
+    imgSrc: "./2022-2-apple-iphone-12-black-652d20cf8716201626d168a2.jfif",
+    rocessor: "Apple A16 Bionic",
+    screen: "screen 6.1",
+    memory: "256gb",
+    system: "ios 15",
+    price: 1199,
+    free: "free Shipment",
+  },
+  {
+    id: 3,
+    name: "iphone",
+    title: "Apple iphone 15 Pro Max",
+    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
+    screen: "screen 6.1",
+    processor: "Apple A16 Bionic",
+    memory: "256gb",
+    system: "ios 15",
+    price: 1599,
+    free: "free Shipment",
+  },
 
-
-
-
+  {
+    id: 4,
+    name: "iphone",
+    title: "Apple iphone 13 Pro Max",
+    imgSrc: "./2023-9-apple-iphone-15-black-652d21128716201626d17671.jfif",
+    screen: "screen 6.1",
+    rocessor: "Apple A16 Bionic",
+    memory: "256gb",
+    system: "ios 15",
+    price: 1299,
+    free: "free Shipment",
+  },
+  {
+    id: 5,
+    name: "iphone",
+    title: "Apple iphone 12",
+    imgSrc: "./2022-2-apple-iphone-12-black-652d20cf8716201626d168a2.jfif",
+    rocessor: "Apple A16 Bionic",
+    screen: "screen 6.1",
+    memory: "256gb",
+    system: "ios 15",
+    price: 1199,
+    free: "free Shipment",
+  },
+];
 
 export function SideBar() {
   const [minValue, set_minValue] = useState(Min);
   const [maxValue, set_maxValue] = useState(Max);
-
-
-
- const filterPrice = (
-    ProductList.filter((product) =>
-      product.price >=minValue&&
-      product.price <=maxValue
-    ).map(product =>
-      <div key={product.id} className="card w-[350px] my-5 md:mr-9 bg-base-100">
-        <div className="text-end p-5">
-          <i
-            className="fa-regular fa-heart text-red-500 fa-lg cursor-pointer"
-          ></i>
-        </div>
-        <figure>
-          <img
-            src={product.imgSrc}
-            alt={product.name}
-          />
-        </figure>
-        <div className="card-body px-6">
-          <h2 className="card-title">{product.title}</h2>
-          <div className="rating py-1">
-            <input
-              type="radio"
-              name="rating-2"
-              className="mask mask-star p-[10px] mr-2 bg-yellow-400 checked:bg-yellow-400"
-            />
-            <input
-              type="radio"
-              name="rating-2"
-              className="mask mask-star p-[10px] mr-2 bg-yellow-400 checked:bg-yellow-400"
-            />
-            <input
-              type="radio"
-              name="rating-2"
-              className="mask mask-star p-[10px] mr-2 bg-yellow-400 checked:bg-yellow-400"
-            />
-            <input
-              type="radio"
-              name="rating-2"
-              className="mask mask-star p-[10px] mr-2 bg-yellow-400 checked:bg-yellow-400"
-            />
-            <input
-              type="radio"
-              name="rating-2"
-              className="mask mask-star p-[10px] mr-2 bg-yellow-400 checked:bg-yellow-400"
-            />
-            <p className="text-md">(710)</p>
-          </div>
-          <p className="text-sm text-slate-600 py-1">{product.screen}</p>
-          <p className="text-sm text-slate-600 pb-1">
-            Processor: {product.processor}
-          </p>
-          <p className="text-sm text-slate-600 pb-1">Memory: {product.memory}</p>
-          <p className="text-sm text-slate-600">System: {product.system}</p>
-          <div className="card-actions items-center justify-end">
-            <p className="text-3xl font-bold">
-              {product.price} <sup className="text-sm font-extralight">99</sup>
-            </p>
-            <button
-              className="p-[15px] bg-blue-600 rounded-2xl hover:bg-blue-800"
-            >
-              <i
-                className="fa-solid fa-cart-shopping text-white fa-lg cursor-pointer"
-              ></i>
-            </button>
-          </div>
-          <a className="text-sm text-blue-500 cursor-pointer">{product.free}</a>
-        </div>
-       </div>
-
-
-  )
-  )
-
-
-
-
+  const [productList, setProductList] = useState([pl]);
+  useEffect(() => {
+    setProductList(
+      pl.filter(
+        (product) => product.price >= minValue && product.price <= maxValue
+      )
+    );
+  }, [minValue, maxValue]);
 
   const handleInput = (e) => {
     set_minValue(e.minValue);
     set_maxValue(e.maxValue);
   };
+
   return (
     <div className="flex bg-slate-200">
       <div className="flex-col bg-white border-r border-slate-100 lg:w-[340px] hidden lg:flex">
@@ -150,8 +141,8 @@ export function SideBar() {
         </div>
         <div>
           <MultiRangeSlider
-            style={{ border: "none", boxShadow: 'none' }}
-            baseClassName='multi-range-slider'
+            style={{ border: "none", boxShadow: "none" }}
+            baseClassName="multi-range-slider"
             min={Min}
             max={Max}
             step={5}
@@ -160,8 +151,8 @@ export function SideBar() {
             preventWheel={false}
             thumbLeftColor="white"
             thumbRightColor="white"
-            minValue={minValue}
-            maxValue={maxValue}
+            minValue={1000}
+            maxValue={2000}
             onInput={(e) => {
               handleInput(e);
             }}
@@ -201,6 +192,9 @@ export function SideBar() {
               </span>
             </label>
           </div>
+
+          {productList.map(Product)}
+          
           <div className="flex ml-8">
             <label className="label cursor-pointer">
               <input
