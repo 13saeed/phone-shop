@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Star } from "./star";
+import { SideBar } from "./sidebar";
 
-
-export function Product({ min, max }) {
+export function Product({ min, max, starsFilter , categoryFilter }) {
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([])
+  const[filteredCategory , setFilteredCategory] = useState([])
+  
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -224,22 +227,50 @@ export function Product({ min, max }) {
             count: json[19].rating.count,
           },
         };
-
+        console.log(json)
         setPosts([...json]);
-        console.log(json);
+        setFilteredPosts(json)
+        setFilteredCategory(json)
+        
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
+  useEffect(() => {
+    if (starsFilter !== null) {
+      setFilteredPosts(posts.filter(o => o.rating.rate >= starsFilter))
+    } else {
+      setFilteredPosts(posts)
+    }
+  }, [starsFilter, posts])
+
+  useEffect(() =>{
+    if (categoryFilter == "men's clothing"){
+      setFilteredCategory(filteredPosts.filter(c => c.category == "men's clothing"))
+    }
+    else if (categoryFilter == "jewelery"){
+      setFilteredCategory(filteredPosts.filter(c => c.category == "jewelery"))
+    }
+    else if (categoryFilter == "women's clothing"){
+      setFilteredCategory(filteredPosts.filter(c => c.category == "women's clothing"))
+    }
+    else if(categoryFilter == "electronics"){
+      setFilteredCategory(filteredPosts.filter(c => c.category == "electronics"))
+    }
+    else{
+      setFilteredCategory(filteredPosts)
+    }
+  },[categoryFilter , filteredPosts])
+
+
+
   return (
     <>
-      {posts
-        .filter((p) => p.price < max && p.price > min)
+      {filteredCategory
+        .filter((p) => p.price <= max && p.price >= min)
         .map((product) => {
-
-
           return (
             <div
               key={product.id}
@@ -258,7 +289,7 @@ export function Product({ min, max }) {
               <div className="card-body px-6 ">
                 <h2 className="card-title items-center ">{product.title}</h2>
 
-               <Star stars={product.rating.rate} rev={product.rating.count}/>
+                <Star stars={product.rating.rate} rev={product.rating.count} />
 
                 <div>
                   <p className="text-sm text-slate-400 mt-1">
@@ -275,7 +306,6 @@ export function Product({ min, max }) {
                     See Detail
                   </button>
                 </div>
-
               </div>
             </div>
           );

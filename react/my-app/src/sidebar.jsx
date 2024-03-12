@@ -3,7 +3,8 @@ import "./multirangeslider.css";
 
 
 
-export function SideBar({ setMin, setMax, min, max }) {
+export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCategory }) {
+ 
   return (
     <div className="flex bg-slate-200">
       <div className="flex-col bg-white border-r border-slate-100 lg:w-[340px] hidden lg:flex">
@@ -54,8 +55,8 @@ export function SideBar({ setMin, setMax, min, max }) {
             preventWheel={false}
             thumbLeftColor="white"
             thumbRightColor="white"
-            minValue={0}
-            maxValue={500}
+            minValue={min}
+            maxValue={max}
             onInput={(e) => {
               setMin(e.minValue);
               setMax(e.maxValue);
@@ -75,50 +76,40 @@ export function SideBar({ setMin, setMax, min, max }) {
             </button>
           </div>
         </div>
-        <div id="4" className="overflow-y-scroll m-5 w-[300px]">
+        <div  className=" m-5 w-[300px]">
+        <div className="flex ml-8">
+            <label className="label cursor-pointer">
+              <span className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("All")} >
+                All
+              </span>
+            </label>
+          </div>
           <div className="flex ml-8 mt-2">
             <label className="label cursor-pointer">
-              <input
-                type="checkbox"
-                defaultChecked
-                className="checkbox checkbox-sm rounded-md"
-              />
-              <span className="label-text text-slate-600 pl-3">
-                Mens clothing (186)
-              </span>
+              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("men's clothing")} >
+                Mens clothing 
+              </a>
             </label>
           </div>
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <input
-                type="checkbox"
-                className="checkbox checkbox-sm rounded-md"
-              />
-              <span className="label-text text-slate-600 pl-3">
-              Womens clothing  (73)
-              </span>
+              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("women's clothing")} >
+                Womens clothing  
+              </a>
             </label>
           </div>
 
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <input
-                type="checkbox"
-                className="checkbox checkbox-sm rounded-md"
-              />
-              <span className="label-text text-slate-600 pl-3">
-                Jewelery (53)
-              </span>
+              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("jewelery")}>
+                Jewelery 
+              </a>
             </label>
           </div>
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <input
-                type="checkbox"
-                className="checkbox checkbox-sm rounded-md"
-              />
-              <span className="label-text text-slate-600 pl-3">
-                Electronics (41)
+              <span className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("electronics")} >
+                Electronics 
               </span>
             </label>
           </div>
@@ -126,123 +117,14 @@ export function SideBar({ setMin, setMax, min, max }) {
 
         <hr className="ml-7 mt-7 w-5/6 border-slate-100" />
         <h4 className="text-start text-lg pl-9 py-3 my-3">Customers rating</h4>
-        <div className="overflow-y-scroll m-5 w-[300px]">
-          <div className="flex items-center ml-9">
-            <input
-              type="checkbox"
-              defaultChecked
-              className="checkbox mt-1 checkbox-sm rounded-md"
-              
-            />
-            <div className="rating rating-sm ml-2">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-            </div>
-          </div>
-          <div className="flex items-center ml-9 mt-4">
-            <input
-              type="checkbox"
-              className="checkbox checkbox-sm rounded-md"
-            />
-            <div className="rating rating-sm ml-2">
-              <input
-                type="radio"
-                name="rating-3"
-                className="mask mask-star bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-3"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-3"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-3"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                defaultChecked
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-3"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-            </div>
-          </div>
+        <div className=" m-5 w-[300px]">
           <div className="flex items-center ml-9 mt-4 mb-2">
-            <input
-              type="checkbox"
-              className="checkbox checkbox-sm rounded-md"
-            />
             <div className="rating rating-sm ml-2">
-              <input
-                type="radio"
-                name="rating-4"
-                className="mask mask-star bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-4"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-4"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                defaultChecked
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-4"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
-              <input
-                type="radio"
-                name="rating-4"
-                className="mask mask-star ml-1.5 bg-yellow-400 checked:bg-yellow-400"
-                disabled
-              />
+              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(1) }} />
+              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(2) }} />
+              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(3) }} />
+              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(4) }} />
+              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(5) }} />
             </div>
           </div>
         </div>
