@@ -48,7 +48,7 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
             style={{ border: "none", boxShadow: "none" }}
             baseClassName="multi-range-slider"
             min={0}
-            max={500}
+            max={501}
             step={5}
             ruler={false}
             label={false}

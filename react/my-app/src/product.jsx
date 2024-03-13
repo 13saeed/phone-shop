@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Star } from "./star";
-import { SideBar } from "./sidebar";
+
 
 export function Product({ min, max, starsFilter , categoryFilter }) {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([])
-  const[filteredCategory , setFilteredCategory] = useState([])
+  const [filteredCategory , setFilteredCategory] = useState([])
+  
   
 
   useEffect(() => {
