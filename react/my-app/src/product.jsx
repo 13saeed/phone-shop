@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Star } from "./star";
 
 
-export function Product({ min, max, starsFilter , categoryFilter }) {
+export function Product({ min, max, starsFilter, categoryFilter, search , findFilter }) {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([])
-  const [filteredCategory , setFilteredCategory] = useState([])
-  
-  
+  const [filteredCategory, setFilteredCategory] = useState([])
+  const [filterSearch, setFilterSearch] = useState([])
+  const [filterFind ,setFilterFind] = useState([])
+
+
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -232,7 +234,9 @@ export function Product({ min, max, starsFilter , categoryFilter }) {
         setPosts([...json]);
         setFilteredPosts(json)
         setFilteredCategory(json)
-        
+        setFilterSearch(json)
+        setFilterFind(json)
+
       })
       .catch((err) => {
         console.log(err.message);
@@ -247,29 +251,52 @@ export function Product({ min, max, starsFilter , categoryFilter }) {
     }
   }, [starsFilter, posts])
 
-  useEffect(() =>{
-    if (categoryFilter == "men's clothing"){
+  useEffect(() => {
+    if (categoryFilter == "men's clothing") {
       setFilteredCategory(filteredPosts.filter(c => c.category == "men's clothing"))
     }
-    else if (categoryFilter == "jewelery"){
+    else if (categoryFilter == "jewelery") {
       setFilteredCategory(filteredPosts.filter(c => c.category == "jewelery"))
     }
-    else if (categoryFilter == "women's clothing"){
+    else if (categoryFilter == "women's clothing") {
       setFilteredCategory(filteredPosts.filter(c => c.category == "women's clothing"))
     }
-    else if(categoryFilter == "electronics"){
+    else if (categoryFilter == "electronics") {
       setFilteredCategory(filteredPosts.filter(c => c.category == "electronics"))
     }
-    else{
+    else {
       setFilteredCategory(filteredPosts)
     }
-  },[categoryFilter , filteredPosts])
+  }, [categoryFilter, filteredPosts])
+
+
+  useEffect(()=>{
+    if(search == ""){
+      setFilterSearch(filteredCategory)
+    }
+    else if(search != ""){
+      setFilterSearch(filteredCategory.filter((x) => x.title.toLowerCase().includes(search.toLowerCase())))
+    }
+  },[search,filteredCategory])
+
+  useEffect(()=>{
+    if(findFilter == ""){
+      setFilterFind(filterSearch)
+    }
+    else if(findFilter != ""){
+      setFilterFind(filterSearch.filter((y) => y.category.toLowerCase().includes(findFilter.toLowerCase())))
+    }
+  },[findFilter,filterSearch])
+
+  
+ 
+
 
 
 
   return (
     <>
-      {filteredCategory
+      {filterFind
         .filter((p) => p.price <= max && p.price >= min)
         .map((product) => {
           return (
