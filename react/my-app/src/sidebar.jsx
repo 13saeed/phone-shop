@@ -3,10 +3,28 @@ import "./multirangeslider.css";
 
 
 
-export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCategory , setFindfilter}) {
+export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCategory , setFindfilter , pro}) {
+  const price = []
+
+  pro.forEach(element => {
+    price.push(element.price)
+  });
+
+  const menimum=Math.min(...price)
+  const maximum=Math.max(...price)
+ 
 
   function handleFindFilter(event){
     setFindfilter(event)
+  }
+
+  function clearFilter(){
+    document.getElementById("search").value=""
+    setMin(0)
+    setMax (500)
+    setStarsFilter (0)
+    setFilterCategory ("All")
+    setFindfilter('')
   }
   
  
@@ -18,7 +36,7 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
             <h2 className="text-xl">Filters</h2>
           </div>
           <div className="flex pr-10">
-            <a className="text-sm cursor-pointer text-blue-400">
+            <a className="text-sm cursor-pointer text-blue-400" onClick={clearFilter}>
               Delete all filters
             </a>
           </div>
@@ -29,6 +47,7 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
               <i className="fa-solid fa-magnifying-glass"></i>
             </div>
             <input
+              id="search"
               type="text"
               className="py-3 pl-10 w-[260px] bordered border-slate-100 bg-slate-100 text-slate-800 rounded-xl items-center focus:outline-none focus:border-blue-400 focus:ring-blue-400 focus:ring-1"
               onChange={(e)=>handleFindFilter(e.target.value)}
@@ -53,9 +72,9 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
           <MultiRangeSlider
             style={{ border: "none", boxShadow: "none" }}
             baseClassName="multi-range-slider"
-            min={0}
-            max={501}
-            step={5}
+            min={menimum}
+            max={maximum}
+            step={1}
             ruler={false}
             label={false}
             preventWheel={false}
@@ -126,11 +145,11 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
         <div className=" m-5 w-[300px]">
           <div className="flex items-center ml-9 mt-4 mb-2">
             <div className="rating rating-sm ml-2">
-              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(1) }} />
-              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(2) }} />
-              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(3) }} />
-              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(4) }} />
-              <input type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(5) }} />
+              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(1) }} />
+              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(2) }} />
+              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(3) }} />
+              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(4) }} />
+              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(5) }} />
             </div>
           </div>
         </div>
