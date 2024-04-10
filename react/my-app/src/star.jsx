@@ -1,5 +1,5 @@
 export const Star = ({ stars, rev }) => {
-  const ratingStar = Array.from({ length: 5 }, (element, index) => {
+  const ratingStar = Array.from({ length: 5 }, (_, index) => {
    
     return <span key={index}>
       {

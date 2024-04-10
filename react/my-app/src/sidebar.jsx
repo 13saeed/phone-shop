@@ -1,33 +1,41 @@
 import MultiRangeSlider from "multi-range-slider-react";
 import "./multirangeslider.css";
+import { useEffect, useState } from "react";
 
+export function SideBar({
+  filter, setFilter,
+  products,
+  changeStar,
+}) {
+  const price = [];
+  const [minimum, setMinimum] = useState(0);
+  const [maximum, setMaximum] = useState(0);
+  const [value, setValue] = useState();
 
+  // useEffect(() => {
+  //   for (const product in products) {
+  //     price.push(product.price);
+  //   }
 
-export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCategory , setFindfilter , pro}) {
-  const price = []
+  //   setMinimum(Math.min(...price));
+  //   setMaximum(Math.max(...price));
+  // }, [products]);
 
-  pro.forEach(element => {
-    price.push(element.price)
-  });
+  // console.log(price);
 
-  const menimum=Math.min(...price)
-  const maximum=Math.max(...price)
- 
+  // function handleFindFilter(event) {
+  //   setFindfilter(event);
+  // }
 
-  function handleFindFilter(event){
-    setFindfilter(event)
-  }
+  // function clearFilter() {
+  //   setValue("");
+  //   setMin(0);
+  //   setMax(500);
+  //   setStarsFilter(0);
+  //   setFilterCategory("All");
+  //   setFindfilter("");
+  // }
 
-  function clearFilter(){
-    document.getElementById("search").value=""
-    setMin(0)
-    setMax (500)
-    setStarsFilter (0)
-    setFilterCategory ("All")
-    setFindfilter('')
-  }
-  
- 
   return (
     <div className="flex bg-slate-200">
       <div className="flex-col bg-white border-r border-slate-100 lg:w-[340px] hidden lg:flex">
@@ -36,7 +44,10 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
             <h2 className="text-xl">Filters</h2>
           </div>
           <div className="flex pr-10">
-            <a className="text-sm cursor-pointer text-blue-400" onClick={clearFilter}>
+            <a
+              className="text-sm cursor-pointer text-blue-400"
+              // onClick={clearFilter}
+            >
               Delete all filters
             </a>
           </div>
@@ -50,8 +61,9 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
               id="search"
               type="text"
               className="py-3 pl-10 w-[260px] bordered border-slate-100 bg-slate-100 text-slate-800 rounded-xl items-center focus:outline-none focus:border-blue-400 focus:ring-blue-400 focus:ring-1"
-              onChange={(e)=>handleFindFilter(e.target.value)}
+              // onChange={(e) => handleFindFilter(e.target.value)}
               placeholder="Find Filter"
+              value={value}
             />
           </div>
         </div>
@@ -59,20 +71,20 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
         <h2 className="text-lg pl-9 py-3">Price</h2>
         <div className="flex justify-center">
           <div className="flex w-[100px] justify-center items-center rounded-xl border border-slate-300">
-            <p className="text-center text-sm">{min}$</p>
+            <p className="text-center text-sm">{}$</p>
           </div>
 
           <p className="text-lg text-center px-2 lg:px-5 lg:pb-5">_</p>
 
           <div className="flex w-[100px] justify-center items-center rounded-xl border border-slate-300">
-            <p className="text-center text-sm">{max}$</p>
+            <p className="text-center text-sm">{}$</p>
           </div>
         </div>
         <div>
           <MultiRangeSlider
             style={{ border: "none", boxShadow: "none" }}
             baseClassName="multi-range-slider"
-            min={menimum}
+            min={minimum}
             max={maximum}
             step={1}
             ruler={false}
@@ -80,12 +92,12 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
             preventWheel={false}
             thumbLeftColor="white"
             thumbRightColor="white"
-            minValue={min}
-            maxValue={max}
-            onInput={(e) => {
-              setMin(e.minValue);
-              setMax(e.maxValue);
-            }}
+            // minValue={min}
+            // maxValue={max}
+            // onInput={(e) => {
+            //   setMin(e.minValue);
+            //   setMax(e.maxValue);
+            // }}
           />
         </div>
 
@@ -101,40 +113,55 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
             </button>
           </div>
         </div>
-        <div  className=" m-5 w-[300px]">
-        <div className="flex ml-8">
+        <div className=" m-5 w-[300px]">
+          <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("All")} >
+              <a
+                className="label-text text-slate-600 pl-3"
+                onClick={() => "all"}
+              >
                 All
               </a>
             </label>
           </div>
           <div className="flex ml-8 mt-2">
             <label className="label cursor-pointer">
-              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("men's clothing")} >
-                Mens clothing 
+              <a
+                className="label-text text-slate-600 pl-3"
+                // onClick={() => setFilter("men's clothing")}
+              >
+                Mens clothing
               </a>
             </label>
           </div>
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("women's clothing")} >
-                Womens clothing  
+              <a
+                className="label-text text-slate-600 pl-3"
+                // onClick={() => setFilterCategory("women's clothing")}
+              >
+                Womens clothing
               </a>
             </label>
           </div>
 
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("jewelery")}>
-                Jewelery 
+              <a
+                className="label-text text-slate-600 pl-3"
+                // onClick={() => setFilterCategory("jewelery")}
+              >
+                Jewelery
               </a>
             </label>
           </div>
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a className="label-text text-slate-600 pl-3" onClick={() => setFilterCategory("electronics")} >
-                Electronics 
+              <a
+                className="label-text text-slate-600 pl-3"
+                // onClick={() => setFilterCategory("electronics")}
+              >
+                Electronics
               </a>
             </label>
           </div>
@@ -145,11 +172,46 @@ export function SideBar({ setMin, setMax, min, max, setStarsFilter , setFilterCa
         <div className=" m-5 w-[300px]">
           <div className="flex items-center ml-9 mt-4 mb-2">
             <div className="rating rating-sm ml-2">
-              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(1) }} />
-              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(2) }} />
-              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(3) }} />
-              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(4) }} />
-              <input  type="radio" name="rating-1" className="mask mask-star-2 bg-orange-400 checked:bg-orange-400" onChange={() => { setStarsFilter(5) }} />
+              <input
+                type="radio"
+                name="rating-1"
+                className="mask mask-star-2 bg-orange-400 checked:bg-orange-400"
+                onChange={() => {
+                   setFilter((f) => Object.assign({}, f , { stars: 1 })) 
+                }}
+              />
+              <input
+                type="radio"
+                name="rating-1"
+                className="mask mask-star-2 bg-orange-400 checked:bg-orange-400"
+                onChange={() => {
+                   setFilter((f) => Object.assign({}, f, { stars: 2 }))
+                }}
+              />
+              <input
+                type="radio"
+                name="rating-1"
+                className="mask mask-star-2 bg-orange-400 checked:bg-orange-400"
+                onChange={()=>{
+                  setFilter((f) => Object.assign({}, f, { stars: 3 }))
+                }}
+              />
+              <input
+                type="radio"
+                name="rating-1"
+                className="mask mask-star-2 bg-orange-400 checked:bg-orange-400"
+                onChange={() => {
+                  setFilter((f) => Object.assign({}, f, { stars: 4 }))
+                }}
+              />
+              <input
+                type="radio"
+                name="rating-1"
+                className="mask mask-star-2 bg-orange-400 checked:bg-orange-400"
+                onChange={() => {
+                  setFilter((f) => Object.assign({}, f, { stars: 5 }))
+                }}
+              />
             </div>
           </div>
         </div>
