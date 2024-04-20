@@ -6,12 +6,10 @@ import { Section2 } from "./section2";
 import { Product } from "./product";
 
 function App() {
-  // const [minValue, setMinValue] = useState(0);
-  // const [maxValue, setMaxValue] = useState(500);
-  // const [starsFilter, setStarsFilter] = useState(null);
-  // const [filterCategory, setFilterCategory] = useState("All")
-  // const [findFilter,setFindFilter]=useState("")
-  // const [search, setSearch] = useState("")
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(0);
+  const [selectedMin, setSelectedMin] = useState(0);
+  const [selectedMax, setSelectedMax] = useState(0);
   const [products, setProducts] = useState([]);
   const [productsCopy, setProductsCopy] = useState([]);
   const [filter, setFilter] = useState({ stars: null, category: null });
@@ -19,89 +17,77 @@ function App() {
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((json) => {setProducts(json) ; setProductsCopy(json)})
+      .then((json) => setProducts(json))
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
-  
-
-  function changeStar(selectedStar) {
+  function setStars(selectedStar) {
     setFilter((f) => ({ stars: selectedStar, category: f.category }));
+  }
+  function setCategory(selectedCategory) {
+    setFilter((f) => ({ stars: f.stars, category: selectedCategory }));
   }
 
   useEffect(() => {
     if (filter.stars !== null) {
-      setProductsCopy(p => p.filter((p) => p.rating.rate >= filter.stars));
+      setProductsCopy((p) => p.filter((p) => p.rating.rate >= filter.stars));
     } else {
-      setProductsCopy(products)
+      setProductsCopy(products);
     }
-
+     if (filter.category == "men's clothing") {
+      setProductsCopy((p) => p.filter((p) => p.category == "men's clothing" ));
+    } else if (filter.category == "women's clothing") {
+      setProductsCopy((p) => p.filter((p) => p.category == "women's clothing"));
+    } else if (filter.category == "jewelery") {
+      setProductsCopy((p) => p.filter((p) => p.category == "jewelery"));
+    } else if (filter.category == "electronics") {
+      setProductsCopy((p) => p.filter((p) => p.category == "electronics"));
+    } else if (filter.category == null){
+      setProductsCopy((p) => p.filter((p) => p.category));
+    }
   }, [filter, products]);
 
-  // set filter stars
-  // unset filter stars
+
 
   useEffect(() => {
-    // setMin(xxx)
-    // setMin(xxx)
-  }, [products])
+    setMinValue(Math.min(...productsCopy.map(p => p.price)))
+    setMaxValue(Math.max(...productsCopy.map(p => p.price)))
+  },[productsCopy])
 
-  // useEffect(() => {
-  //   if (starsFilter !== null) {
-  //     setFilter(products.filter(o => o.rating.rate >= starsFilter))
 
-  //   } else {
-  //     setFilter(products)
-  //   }
-  //   if(filter == "men's clothing"){
-  //     setFilter(products.filter(c => c.category == "men's clothing"))
-  //   }
-
-  // }, [starsFilter, products, filter])
-
-  // useEffect(()=>{
-  //   if(search == ""){
-  //     setFilterSearch(filteredCategory)
-  //   }
-  //   else if(search != ""){
-  //     setFilterSearch(filteredCategory.filter((x) => x.title.toLowerCase().includes(search.toLowerCase())))
-  //   }
-  // },[search,filteredCategory])
-
-  // useEffect(()=>{
-
-  //   if(findFilter == ""){
-  //     setFilterFind(filterSearch)
-  //   }
-  //   else if(findFilter != ""){
-  //     setFilterFind(filterSearch.filter((y) => y.category.toLowerCase().includes(findFilter.toLowerCase())))
-  //   }
-  // },[filterSearch, findFilter])
   return (
     <div>
-      {/* <Navbar setSearch={setSearch} /> */}
+      <Navbar />
       <Section />
 
       <div className="flex bg-slate-300">
         <SideBar
-          // setMin={setMinValue}
-          // setMax={setMaxValue}
-          // min={minValue}
-          // max={maxValue}
-          // setStarsFilter={setStarsFilter}
-          // setFilterCategory={setFilterCategory}
-          // setFindfilter={setFindFilter}
+          setMin={setMinValue}
+          setMax={setMaxValue}
+          min={minValue}
+          max={maxValue}
+          selectedMin={selectedMin}
+          setSelectedMin={setSelectedMin}
+          selectedMax={selectedMax}
+          setSelectedMax={setSelectedMax}
           filter={filter}
           setFilter={setFilter}
           products={products}
-        
+          setStars={setStars}
+          setCategory={setCategory}
         />
         <div className=" w-full overflow-auto">
           <Section2 />
           <div className="flex flex-wrap my-6 mx-16 items-center content-center justify-center lg:justify-start">
-            <Product productsCopy={productsCopy} />
+            <Product
+              productsCopy={productsCopy}
+              setProductCopy={setProductsCopy}
+              selectedMin={selectedMin}
+              selectedMax={selectedMax}
+              products={products}
+            />
           </div>
         </div>
       </div>

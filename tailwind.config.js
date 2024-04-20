@@ -3,11 +3,13 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark", "cupcake"],
   },
-  content: [],
+  content: ["./react/my-app/public/index.html"],
   theme: {
 
     extend: {},
   },
+  tailwindcss: {},
+  autoprefixer: {},
   plugins: [require("daisyui")],
   plugins: [require("tailwind-scrollbar")],
   daisyui: {
