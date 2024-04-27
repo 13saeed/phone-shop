@@ -1,6 +1,6 @@
 import MultiRangeSlider from "multi-range-slider-react";
 import "./multirangeslider.css";
-import { useEffect, useState } from "react";
+import { Stars } from "./star";
 
 export function SideBar({
   filter,
@@ -12,9 +12,9 @@ export function SideBar({
   selectedMax,
   setSelectedMin,
   setSelectedMax,
+  setFindFilter,
+  clearFilter,
 }) {
-  const [value, setValue] = useState();
-  
   return (
     <div className="flex bg-slate-200">
       <div className="flex-col bg-white border-r border-slate-100 lg:w-[340px] hidden lg:flex">
@@ -23,12 +23,12 @@ export function SideBar({
             <h2 className="text-xl">Filters</h2>
           </div>
           <div className="flex pr-10">
-            <a
+            <button
               className="text-sm cursor-pointer text-blue-400"
-              // onClick={clearFilter}
+              onClick={clearFilter}
             >
               Delete all filters
-            </a>
+            </button>
           </div>
         </div>
         <div className="flex justify-center my-2">
@@ -40,9 +40,8 @@ export function SideBar({
               id="search"
               type="text"
               className="py-3 pl-10 w-[260px] bordered border-slate-100 bg-slate-100 text-slate-800 rounded-xl items-center focus:outline-none focus:border-blue-400 focus:ring-blue-400 focus:ring-1"
-              // onChange={(e) => handleFindFilter(e.target.value)}
+              onChange={(e) => setFindFilter(e.target.value)}
               placeholder="Find Filter"
-              value={value}
             />
           </div>
         </div>
@@ -60,24 +59,46 @@ export function SideBar({
           </div>
         </div>
         <div>
-          <MultiRangeSlider
-            style={{ border: "none", boxShadow: "none" }}
-            baseClassName="multi-range-slider"
-            min={min}
-            max={max}
-            step={1}
-            ruler={false}
-            label={false}
-            preventWheel={false}
-            thumbLeftColor="white"
-            thumbRightColor="white"
-            minValue={min}
-            maxValue={max}
-            onInput={(e) => {
-              setSelectedMin(e.minValue);
-              setSelectedMax(e.maxValue);
-            }}
-          />
+          {min === 0 && max === 0 ? (
+            <MultiRangeSlider
+              style={{ border: "none", boxShadow: "none" }}
+              baseClassName="multi-range-slider"
+              min={min}
+              max={max}
+              step={1}
+              ruler={false}
+              label={false}
+              preventWheel={false}
+              thumbLeftColor="white"
+              thumbRightColor="white"
+              minValue={min}
+              maxValue={max}
+              onInput={(e) => {
+                setSelectedMin(e.minValue);
+                setSelectedMax(e.maxValue);
+              }}
+              disabled
+            />
+          ) : (
+            <MultiRangeSlider
+              style={{ border: "none", boxShadow: "none" }}
+              baseClassName="multi-range-slider"
+              min={min}
+              max={max}
+              step={1}
+              ruler={false}
+              label={false}
+              preventWheel={false}
+              thumbLeftColor="white"
+              thumbRightColor="white"
+              minValue={min}
+              maxValue={max}
+              onInput={(e) => {
+                setSelectedMin(e.minValue);
+                setSelectedMax(e.maxValue);
+              }}
+            />
+          )}
         </div>
 
         <hr className="ml-7 mt-8 w-5/6 border-slate-100" />
@@ -95,125 +116,58 @@ export function SideBar({
         <div className=" m-5 w-[300px]">
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a
+              <button
                 className="label-text text-slate-600 pl-3"
                 onClick={() => setCategory(null)}
               >
                 All
-              </a>
+              </button>
             </label>
           </div>
           <div className="flex ml-8 mt-2">
             <label className="label cursor-pointer">
-              <a
+              <button
                 className="label-text text-slate-600 pl-3"
                 onClick={() => setCategory("men's clothing")}
               >
                 Mens clothing
-              </a>
+              </button>
             </label>
           </div>
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a
+              <button
                 className="label-text text-slate-600 pl-3"
                 onClick={() => setCategory("women's clothing")}
               >
                 Womens clothing
-              </a>
+              </button>
             </label>
           </div>
-
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a
+              <button
                 className="label-text text-slate-600 pl-3"
                 onClick={() => setCategory("jewelery")}
               >
                 Jewelery
-              </a>
+              </button>
             </label>
           </div>
           <div className="flex ml-8">
             <label className="label cursor-pointer">
-              <a
+              <button
                 className="label-text text-slate-600 pl-3"
                 onClick={() => setCategory("electronics")}
               >
                 Electronics
-              </a>
+              </button>
             </label>
           </div>
         </div>
-
         <hr className="ml-7 mt-7 w-5/6 border-slate-100" />
         <h4 className="text-start text-lg pl-9 py-3 my-3">Customers rating</h4>
-        <div className=" m-5 w-[300px]">
-          <div className="flex items-center ml-9 mt-4 mb-2">
-            <div className="rating rating-sm ml-2 ">
-              <input
-                type="radio"
-                name="rating-1"
-                className="mask mask-star-2 bg-orange-400 focus-visible:none "
-                onClick={() => {
-                  if (filter.stars == 1) {
-                    setStars(null);
-                  } else {
-                    setStars(1);
-                  }
-                }}
-              />
-              <input
-                type="radio"
-                name="rating-1"
-                className="mask mask-star-2 bg-orange-400 "
-                onClick={() => {
-                  if (filter.stars == 2) {
-                    setStars(null);
-                  } else {
-                    setStars(2);
-                  }
-                }}
-              />
-              <input
-                type="radio"
-                name="rating-1"
-                className="mask mask-star-2 bg-orange-400 "
-                onClick={() => {
-                  if (filter.stars == 3) {
-                    setStars(null);
-                  } else {
-                    setStars(3);
-                  }
-                }}
-              />
-              <input
-                type="radio"
-                name="rating-1"
-                className="mask mask-star-2 bg-orange-400 "
-                onClick={() => {
-                  if (filter.stars == 4) {
-                    setStars(null);
-                  } else {
-                    setStars(4);
-                  }
-                }}
-              />
-              <input
-                type="radio"
-                name="rating-1"
-                className="mask mask-star-2 bg-orange-400 "
-                onClick={() => {
-                  if (filter.stars == 5) {
-                    setStars(null);
-                  } else {
-                    setStars(5);
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </div>
+        <Stars filter={filter} setStars={setStars}/>
         <hr className="ml-7 mt-7 w-5/6 border-slate-100" />
         <div className="flex items-center mt-4">
           <div className="flex-1">

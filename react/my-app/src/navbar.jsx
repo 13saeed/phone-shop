@@ -1,7 +1,5 @@
 export function Navbar({setSearch}) {
-    function handleSearch(event){
-      setSearch(event)
-    }
+    
     return(
     <>
     <div
@@ -17,7 +15,7 @@ export function Navbar({setSearch}) {
         <input
           type="text"
           className="py-3 px-10 w-[250px] bordered border-slate-100 bg-slate-100 text-slate-800 rounded-xl items-center focus:outline-none focus:border-blue-400 focus:ring-blue-400 focus:ring-1 sm:w-[350px] lg:w-[500px]"
-          onChange={(e)=>handleSearch(e.target.value)}
+          onChange={(e)=>setSearch(e.target.value)}
           placeholder="search"
         />
       </div>

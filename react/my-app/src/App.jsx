@@ -12,7 +12,13 @@ function App() {
   const [selectedMax, setSelectedMax] = useState(0);
   const [products, setProducts] = useState([]);
   const [productsCopy, setProductsCopy] = useState([]);
-  const [filter, setFilter] = useState({ stars: null, category: null });
+  const [filter, setFilter] = useState({
+    stars: null,
+    category: null,
+    search: null,
+    findFilter: null,
+    highprice: null,
+  });
   //-----------------------------------------------------
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -24,10 +30,62 @@ function App() {
   }, []);
 
   function setStars(selectedStar) {
-    setFilter((f) => ({ stars: selectedStar, category: f.category }));
+    setFilter((f) => ({
+      stars: selectedStar,
+      category: f.category,
+      search: f.search,
+      findFilter: f.findFilter,
+      highprice: f.highprice,
+    }));
   }
   function setCategory(selectedCategory) {
-    setFilter((f) => ({ stars: f.stars, category: selectedCategory }));
+    setFilter((f) => ({
+      stars: f.stars,
+      category: selectedCategory,
+      search: f.search,
+      findFilter: f.findFilter,
+      highprice: f.highprice,
+    }));
+  }
+  function setSearch(selectedSearch) {
+    setFilter((f) => ({
+      stars: f.stars,
+      category: f.category,
+      search: selectedSearch,
+      findFilter: f.findFilter,
+      highprice: f.highprice,
+    }));
+  }
+  function setFindFilter(selectedFindFilter) {
+    setFilter((f) => ({
+      stars: f.stars,
+      category: f.category,
+      search: f.search,
+      findFilter: selectedFindFilter,
+      highprice: f.highprice,
+    }));
+  }
+
+  function clearFilter() {
+    setCategory("all");
+    setStars(null);
+    setSearch(null);
+    setFindFilter(null);
+  }
+
+  function setHighPrice() {
+    setProductsCopy([
+      ...productsCopy.sort((a, b) => {
+        return b.price - a.price;
+      }),
+    ]);
+  }
+  function setLowPrice() {
+    setProductsCopy([
+      ...productsCopy.sort((a, b) => {
+        return a.price - b.price;
+      }),
+    ]);
   }
 
   useEffect(() => {
@@ -36,30 +94,46 @@ function App() {
     } else {
       setProductsCopy(products);
     }
-     if (filter.category == "men's clothing") {
-      setProductsCopy((p) => p.filter((p) => p.category == "men's clothing" ));
-    } else if (filter.category == "women's clothing") {
-      setProductsCopy((p) => p.filter((p) => p.category == "women's clothing"));
-    } else if (filter.category == "jewelery") {
-      setProductsCopy((p) => p.filter((p) => p.category == "jewelery"));
-    } else if (filter.category == "electronics") {
-      setProductsCopy((p) => p.filter((p) => p.category == "electronics"));
-    } else if (filter.category == null){
-      setProductsCopy((p) => p.filter((p) => p.category));
+    if (filter.category === "men's clothing") {
+      setProductsCopy((p) => p.filter((p) => p.category === "men's clothing"));
+    } else if (filter.category === "women's clothing") {
+      setProductsCopy((p) =>
+        p.filter((p) => p.category === "women's clothing")
+      );
+    } else if (filter.category === "jewelery") {
+      setProductsCopy((p) => p.filter((p) => p.category === "jewelery"));
+    } else if (filter.category === "electronics") {
+      setProductsCopy((p) => p.filter((p) => p.category === "electronics"));
+    }
+    if (filter.search != null) {
+      setProductsCopy((p) =>
+        p.filter((p) =>
+          p.title.toLowerCase().includes(filter.search.toLowerCase())
+        )
+      );
+    }
+    if (filter.findFilter != null) {
+      setProductsCopy((p) =>
+        p.filter((p) =>
+          p.category.toLowerCase().includes(filter.findFilter.toLowerCase())
+        )
+      );
     }
   }, [filter, products]);
 
-
-
   useEffect(() => {
-    setMinValue(Math.min(...productsCopy.map(p => p.price)))
-    setMaxValue(Math.max(...productsCopy.map(p => p.price)))
-  },[productsCopy])
-
+    if (productsCopy.length === 0) {
+      setMinValue(0);
+      setMaxValue(0);
+    } else {
+      setMinValue(Math.min(...productsCopy.map((p) => p.price)));
+      setMaxValue(Math.max(...productsCopy.map((p) => p.price)));
+    }
+  }, [productsCopy]);
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSearch={setSearch} />
       <Section />
 
       <div className="flex bg-slate-300">
@@ -77,9 +151,11 @@ function App() {
           products={products}
           setStars={setStars}
           setCategory={setCategory}
+          setFindFilter={setFindFilter}
+          clearFilter={clearFilter}
         />
         <div className=" w-full overflow-auto">
-          <Section2 />
+          <Section2 highPrice={setHighPrice} lowPrice={setLowPrice} />
           <div className="flex flex-wrap my-6 mx-16 items-center content-center justify-center lg:justify-start">
             <Product
               productsCopy={productsCopy}

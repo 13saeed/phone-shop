@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Star } from "./star";
 
 export function Product({
@@ -26,9 +25,7 @@ export function Product({
           </figure>
           <div className="card-body px-6 ">
             <h2 className="card-title items-center ">{product.title}</h2>
-
             <Star stars={product.rating.rate} rev={product.rating.count} />
-
             <div>
               <p className="text-sm text-slate-400 mt-1">
                 <b>category:</b> {product.category}
