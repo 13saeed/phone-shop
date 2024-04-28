@@ -12,6 +12,7 @@ function App() {
   const [selectedMax, setSelectedMax] = useState(0);
   const [products, setProducts] = useState([]);
   const [productsCopy, setProductsCopy] = useState([]);
+  const [view, setView] = useState(true);
   const [filter, setFilter] = useState({
     stars: null,
     category: null,
@@ -19,6 +20,7 @@ function App() {
     findFilter: null,
     highprice: null,
   });
+
   //-----------------------------------------------------
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -155,14 +157,20 @@ function App() {
           clearFilter={clearFilter}
         />
         <div className=" w-full overflow-auto">
-          <Section2 highPrice={setHighPrice} lowPrice={setLowPrice} />
-          <div className="flex flex-wrap my-6 mx-16 items-center content-center justify-center lg:justify-start">
+          <Section2
+            highPrice={setHighPrice}
+            lowPrice={setLowPrice}
+            view={view}
+            setView={setView}
+          />
+          <div className="flex flex-wrap my-6 mx-10 items-center content-center justify-center ">
             <Product
               productsCopy={productsCopy}
               setProductCopy={setProductsCopy}
               selectedMin={selectedMin}
               selectedMax={selectedMax}
               products={products}
+              view={view}
             />
           </div>
         </div>

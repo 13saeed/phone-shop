@@ -1,16 +1,21 @@
-export function Section2({highPrice , lowPrice}) {
+export function Section2({ highPrice, lowPrice, view, setView }) {
   return (
     <div className="w-full">
       <div className="flex flex-col items-center border-r border-slate-100 bg-white w-full h-24 pl-10 sm:flex-row lg:h-16">
         <div className="flex m-2 lg:m-0">
-          <button>
-            <i className="fas fa-grip-horizontal cursor-pointer text-blue-400 fa-xl lg:ml-14"></i>
+          <button onClick={() => setView(true)}>
+            {view ? (
+              <i className="fas fa-grip-horizontal cursor-pointer text-blue-400 fa-xl lg:ml-14"></i>
+            ) : (
+              <i className="fas fa-grip-horizontal cursor-pointer text-slate-300 fa-xl lg:ml-14 hover:text-black"></i>
+            )}
           </button>
-          <button>
-            <i className="fa-solid fa-list text-slate-300 ml-5 fa-xl cursor-pointer hover:text-black"></i>
-          </button>
-          <button>
-            <i className="fa-solid fa-table-list text-slate-300 ml-5 cursor-pointer hover:text-black fa-xl"></i>
+          <button onClick={() => setView(false)}>
+            {view === false ? (
+              <i className="fa-solid fa-list text-blue-400 ml-5 fa-lg cursor-pointer"></i>
+            ) : (
+              <i className="fa-solid fa-list text-slate-300 ml-5 fa-lg cursor-pointer hover:text-black"></i>
+            )}
           </button>
         </div>
         <div className="flex justify-center sm:justify-end items-center w-full sm:mr-10">
@@ -25,7 +30,8 @@ export function Section2({highPrice , lowPrice}) {
             </div>
             <ul
               tabIndex="0"
-              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 lg:w-56">
+              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 lg:w-56"
+            >
               <li>
                 <button onClick={highPrice}>Ascending</button>
               </li>
