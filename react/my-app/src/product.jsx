@@ -8,20 +8,20 @@ export function Product({ productsCopy, selectedMin, selectedMax, view }) {
         p.push(
           <div
             key={product.id}
-            className="card w-[350px] h[550px] my-5 md:mr-5 bg-base-100 hover:shadow-2xl "
+            className="card w-[350px] h[550px] my-5 md:mr-2 lg:mr-5 bg-base-100 hover:shadow-2xl "
           >
             <div className="text-end  p-5">
               <i className="fa-regular fa-heart text-red-500 fa-lg cursor-pointer"></i>
             </div>
             <figure>
               <img
-                className="w-[200px] h-[200px]  items-center"
+                className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] items-center"
                 src={product.image}
                 alt={product.name}
               />
             </figure>
             <div className="card-body px-6 ">
-              <h2 className="card-title items-center ">{product.title}</h2>
+              <h2 className="card-title items-center">{product.title}</h2>
               <Star stars={product.rating.rate} rev={product.rating.count} />
               <div>
                 <p className="text-sm text-slate-400 mt-1">
@@ -44,17 +44,17 @@ export function Product({ productsCopy, selectedMin, selectedMax, view }) {
       } else {
         p.push(
           <div
-            className="card card-side bg-base-100 shadow-xl w-5/6 m-3 "
+            className="card card-side bg-base-100 shadow-xl w-5/6  my-2"
             key={product.id}
           >
             <figure className="w-[250px] h-[300px] p-7 m-2 ">
               <img className="" src={product.image} alt={product.name} />
             </figure>
 
-            <div class="card-body m-5 p-5">
+            <div className="card-body m-5 p-5">
               <h2 class="card-title">{product.title}</h2>
               <Star stars={product.rating.rate} rev={product.rating.count} />
-              <p>
+              <p className="text-slate-400">
                 <b>category:</b> {product.category}
               </p>
 

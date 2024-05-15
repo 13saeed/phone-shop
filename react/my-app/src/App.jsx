@@ -10,6 +10,7 @@ function App() {
   const [maxValue, setMaxValue] = useState(0);
   const [selectedMin, setSelectedMin] = useState(0);
   const [selectedMax, setSelectedMax] = useState(0);
+  const [show, setShow] = useState(false);
   const [products, setProducts] = useState([]);
   const [productsCopy, setProductsCopy] = useState([]);
   const [view, setView] = useState(true);
@@ -74,6 +75,7 @@ function App() {
     setSearch(null);
     setFindFilter(null);
   }
+  
 
   function setHighPrice() {
     setProductsCopy([
@@ -89,6 +91,9 @@ function App() {
       }),
     ]);
   }
+
+  
+ 
 
   useEffect(() => {
     if (filter.stars !== null) {
@@ -132,10 +137,11 @@ function App() {
       setMaxValue(Math.max(...productsCopy.map((p) => p.price)));
     }
   }, [productsCopy]);
+  console.log(show);
 
   return (
     <div>
-      <Navbar setSearch={setSearch} />
+      <Navbar setSearch={setSearch} setShow={setShow} show={show}/>
       <Section />
 
       <div className="flex bg-slate-300">
@@ -155,6 +161,8 @@ function App() {
           setCategory={setCategory}
           setFindFilter={setFindFilter}
           clearFilter={clearFilter}
+          setShow={setShow}
+          show={show}
         />
         <div className=" w-full overflow-auto">
           <Section2
@@ -162,8 +170,9 @@ function App() {
             lowPrice={setLowPrice}
             view={view}
             setView={setView}
+            show={show}
           />
-          <div className="flex flex-wrap my-6 mx-10 items-center content-center justify-center ">
+          <div className="flex flex-wrap my-6   items-center content-center justify-center ">
             <Product
               productsCopy={productsCopy}
               setProductCopy={setProductsCopy}
