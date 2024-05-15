@@ -1,7 +1,7 @@
 export function Section2({ highPrice, lowPrice, view, setView , show }) {
   return (
     <div className="w-full">
-      <div className="flex flex-col flex-wrap justify-between  items-center border-r border-slate-100 bg-white w-full h-24 md:pl-10 sm:flex-row lg:h-16">
+      <div className="flex flex-col flex-wrap justify-between  items-center border-r border-slate-100 bg-white w-full h-20 sm:h-20 md:pl-10 sm:flex-row lg:h-16">
         <div className={` m-2 hidden md:flex lg:m-0 md:${show ? "hidden" : ""}`}>
           <button onClick={() => setView(true)}>
             {view ? (
@@ -18,8 +18,8 @@ export function Section2({ highPrice, lowPrice, view, setView , show }) {
             )}
           </button>
         </div>
-        <div className="flex flex-col-reverse items-center md:flex-row">
-          <div className="dropdown">
+        <div className={`flex flex-row items-center m-5 sm:m-0  ${show ? "hidden" : ""} sm:${show ? "flex" : ""}`}>
+          <div className="dropdown ">
             <div
               tabIndex="0"
               role="button"
