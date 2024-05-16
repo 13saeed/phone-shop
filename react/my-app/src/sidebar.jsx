@@ -1,6 +1,7 @@
 import MultiRangeSlider from "multi-range-slider-react";
 import "./multirangeslider.css";
 import { Stars } from "./star";
+import { useState } from "react";
 
 export function SideBar({
   filter,
@@ -16,12 +17,14 @@ export function SideBar({
   clearFilter,
   setShow,
   show,
-}) {
+})
+ {
+ 
   return (
     <>
-
-      <div className={`bg-slate-200 shadow-black shadow-[0_99px_60px_30px_rgba(0,0,0,0.3)] z-10 ${show ? "flex" : "hidden"} lg:flex lg:shadow-none`}>
-       
+      <div
+        className={`bg-slate-200 shadow-black shadow-[0_99px_60px_30px_rgba(0,0,0,0.3)] z-10 ${show ? "flex" : "hidden"} lg:flex lg:shadow-none`}
+      >
         <div className="flex-col bg-white border-r border-slate-100 w-[316px]  lg:w-[340px] lg:flex ">
           <div className="flex justify-end p-3 mt-4 cursor-pointer">
             <i
@@ -124,57 +127,49 @@ export function SideBar({
               </button>
             </div>
           </div>
+          
           <div className=" m-5 w-[300px]">
-            <div className="flex ml-8">
-              <label className="label cursor-pointer">
-                <button
-                  className="label-text text-slate-600 pl-3"
-                  onClick={() => setCategory(null)}
-                >
-                  All
-                </button>
-              </label>
-            </div>
-            <div className="flex ml-8 mt-2">
-              <label className="label cursor-pointer">
-                <button
-                  className="label-text text-slate-600 pl-3"
-                  onClick={() => setCategory("men's clothing")}
-                >
-                  Mens clothing
-                </button>
-              </label>
-            </div>
-            <div className="flex ml-8">
-              <label className="label cursor-pointer">
-                <button
-                  className="label-text text-slate-600 pl-3"
-                  onClick={() => setCategory("women's clothing")}
-                >
-                  Womens clothing
-                </button>
-              </label>
-            </div>
-            <div className="flex ml-8">
-              <label className="label cursor-pointer">
-                <button
-                  className="label-text text-slate-600 pl-3"
-                  onClick={() => setCategory("jewelery")}
-                >
-                  Jewelery
-                </button>
-              </label>
-            </div>
-            <div className="flex ml-8">
-              <label className="label cursor-pointer">
-                <button
-                  className="label-text text-slate-600 pl-3"
-                  onClick={() => setCategory("electronics")}
-                >
-                  Electronics
-                </button>
-              </label>
-            </div>
+            <label className="flex ml-8  hover:bg-slate-100 hover:w-3/4 hover:rounded-lg  hover:font-bold label cursor-pointer ">
+              <button
+                className="label-text text-slate-600 pl-3 hover:text-blue-500"
+                onClick={() => setCategory(null)}
+              >
+                All
+              </button>
+            </label>
+            <label className="flex ml-8 mt-2 label cursor-pointer hover:bg-slate-100 hover:w-3/4 hover:rounded-lg  hover:font-bold">
+              <button
+                className="label-text text-slate-600 pl-3 hover:text-blue-500"
+                onClick={() => setCategory("men's clothing")}
+              >
+                Mens clothing
+              </button>
+            </label>
+            <label className="flex ml-8 label cursor-pointer hover:bg-slate-100 hover:w-3/4 hover:rounded-lg  hover:font-bold">
+              <button
+                className="label-text text-slate-600 pl-3 hover:text-blue-500"
+                onClick={() => setCategory("women's clothing")}
+              >
+                Womens clothing
+              </button>
+            </label>
+
+            <label className="flex ml-8 label cursor-pointer hover:bg-slate-100 hover:w-3/4 hover:rounded-lg  hover:font-bold">
+              <button
+                className="label-text text-slate-600 pl-3 hover:text-blue-500"
+                onClick={() => setCategory("jewelery")}
+              >
+                Jewelery
+              </button>
+            </label>
+            <label className="flex ml-8 label cursor-pointer hover:bg-slate-100 hover:w-3/4 hover:rounded-lg  hover:font-bold">
+              <button
+                className="label-text text-slate-600 pl-3 hover:text-blue-500"
+                onClick={() => setCategory("electronics")}
+              >
+                Electronics
+              </button>
+            </label>
           </div>
           <hr className="ml-7 mt-7 w-5/6 border-slate-100" />
           <h4 className="text-start text-lg pl-9 py-3 my-3">
