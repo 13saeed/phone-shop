@@ -1,24 +1,17 @@
-export function Section2({ highPrice, lowPrice, view, setView , show }) {
+export function Section2({ highPrice, lowPrice, changeview, setView , showSidbar }) {
   return (
     <div className="w-full">
       <div className="flex flex-col flex-wrap justify-between  items-center border-r border-slate-100 bg-white w-full h-20 sm:h-20 md:pl-10 sm:flex-row lg:h-16">
-        <div className={` m-2 hidden md:flex lg:m-0 md:${show ? "hidden" : ""}`}>
+        <div className={` m-2 hidden md:flex lg:m-0 md:${showSidbar ? "hidden" : ""}`}>
           <button onClick={() => setView(true)}>
-            {view ? (
-              <i className="fas fa-grip-horizontal cursor-pointer text-blue-400 fa-xl lg:ml-14"></i>
-            ) : (
-              <i className="fas fa-grip-horizontal cursor-pointer text-slate-300 fa-xl lg:ml-14 hover:text-black"></i>
-            )}
+          <i className={`fas fa-grip-horizontal cursor-pointer fa-xl lg:ml-14 ${changeview ? " text-blue-400" : "text-slate-300 hover:text-black"}`}> </i>
+            
           </button>
           <button onClick={() => setView(false)}>
-            {view === false ? (
-              <i className="fa-solid fa-list text-blue-400 ml-5 fa-lg cursor-pointer"></i>
-            ) : (
-              <i className="fa-solid fa-list text-slate-300 ml-5 fa-lg cursor-pointer hover:text-black"></i>
-            )}
+            <i className= {`fa-solid fa-list  ml-5 fa-lg cursor-pointer ${changeview === false ? "text-blue-400" : "text-slate-300 hover:text-black"}`}></i>
           </button>
         </div>
-        <div className={`flex flex-row items-center m-5 sm:m-0  ${show ? "hidden" : ""} sm:${show ? "flex" : ""}`}>
+        <div className={`flex flex-row items-center m-5 sm:m-0  ${showSidbar ? "hidden" : ""} sm:${showSidbar ? "flex" : ""}`}>
           <div className="dropdown ">
             <div
               tabIndex="0"

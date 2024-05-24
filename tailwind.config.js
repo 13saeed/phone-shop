@@ -8,6 +8,9 @@ module.exports = {
 
     extend: {},
   },
+  variants: {
+    opacity: ({ after }) => after(['disabled'])
+  },
   tailwindcss: {},
   autoprefixer: {},
   plugins: [require("daisyui")],

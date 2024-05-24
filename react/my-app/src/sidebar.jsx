@@ -1,7 +1,6 @@
 import MultiRangeSlider from "multi-range-slider-react";
 import "./multirangeslider.css";
 import { Stars } from "./star";
-import { useState } from "react";
 
 export function SideBar({
   filter,
@@ -15,21 +14,21 @@ export function SideBar({
   setSelectedMax,
   setFindFilter,
   clearFilter,
-  setShow,
-  show,
+  setShowSidbar,
+  showSidbar,
 })
  {
  
   return (
     <>
       <div
-        className={`bg-slate-200 shadow-black shadow-[0_99px_60px_30px_rgba(0,0,0,0.3)] z-10 ${show ? "flex" : "hidden"} lg:flex lg:shadow-none`}
+        className={`bg-slate-200 shadow-black shadow-[0_99px_60px_30px_rgba(0,0,0,0.3)] z-10 ${showSidbar ? "flex" : "hidden"} lg:flex lg:shadow-none`}
       >
         <div className="flex-col bg-white border-r border-slate-100 w-[316px]  lg:w-[340px] lg:flex ">
           <div className="flex justify-end p-3 mt-4 cursor-pointer">
             <i
               class="fa-regular fa-circle-xmark fa-lg lg:hidden"
-              onClick={() => setShow(!show)}
+              onClick={() => setShowSidbar(!showSidbar)}
             ></i>
           </div>
           <div className="flex items-center pl-9 pb-6 ">
@@ -73,9 +72,10 @@ export function SideBar({
             </div>
           </div>
           <div>
-            {min === 0 && max === 0 ? (
+             
               <MultiRangeSlider
                 style={{ border: "none", boxShadow: "none" }}
+                className={`${min === 0 && max === 0 ? 'disabled':''}`}
                 baseClassName="multi-range-slider"
                 min={min}
                 max={max}
@@ -90,29 +90,9 @@ export function SideBar({
                 onInput={(e) => {
                   setSelectedMin(e.minValue);
                   setSelectedMax(e.maxValue);
-                }}
-                disabled
-              />
-            ) : (
-              <MultiRangeSlider
-                style={{ border: "none", boxShadow: "none" }}
-                baseClassName="multi-range-slider"
-                min={min}
-                max={max}
-                step={1}
-                ruler={false}
-                label={false}
-                preventWheel={false}
-                thumbLeftColor="white"
-                thumbRightColor="white"
-                minValue={min}
-                maxValue={max}
-                onInput={(e) => {
-                  setSelectedMin(e.minValue);
-                  setSelectedMax(e.maxValue);
-                }}
-              />
-            )}
+                }
+              }
+              /> 
           </div>
 
           <hr className="ml-7 mt-8 w-5/6 border-slate-100" />

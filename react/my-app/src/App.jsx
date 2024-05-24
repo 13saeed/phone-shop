@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "./navbar";
-import { Section } from "./section";
 import { SideBar } from "./sidebar";
 import { Section2 } from "./section2";
 import { Product } from "./product";
@@ -13,7 +12,7 @@ function App() {
   const [showSidbar, setShowSidbar] = useState(false);
   const [products, setProducts] = useState([]);
   const [productsCopy, setProductsCopy] = useState([]);
-  const [view, setView] = useState(true);
+  const [changeview, setChangeView] = useState(true);
   const [filter, setFilter] = useState({
     stars: null,
     category: null,
@@ -142,7 +141,7 @@ function App() {
   return (
     <div>
       <Navbar setSearch={setSearch} setShow={setShowSidbar} show={showSidbar}/>
-      <Section />
+      
 
       <div className="flex bg-slate-300">
         <SideBar
@@ -161,16 +160,16 @@ function App() {
           setCategory={setCategory}
           setFindFilter={setFindFilter}
           clearFilter={clearFilter}
-          setShow={setShowSidbar}
-          show={showSidbar}
+          setShowSidbar={setShowSidbar}
+          showSidbar={showSidbar}
         />
         <div className=" w-full overflow-auto">
           <Section2
             highPrice={setHighPrice}
             lowPrice={setLowPrice}
-            view={view}
-            setView={setView}
-            show={showSidbar}
+            changeview={changeview}
+            setView={setChangeView}
+            showSidbar={showSidbar}
           />
           <div className="flex flex-wrap my-6   items-center content-center justify-center ">
             <Product
@@ -179,7 +178,7 @@ function App() {
               selectedMin={selectedMin}
               selectedMax={selectedMax}
               products={products}
-              view={view}
+              changeview={changeview}
             />
           </div>
         </div>
